@@ -22,18 +22,20 @@ $data = parseDataMahasiswa('./datamhs.dat');
   <table>
     <thead>
       <tr>
+        <th>No</th>
         <th>NIM</th>
         <th>Nama</th>
         <th>Tanggal Lahir</th>
         <th>Tempat Lahir</th>
-        <th>Usia (tahun)</th>
+        <th>Usia (Tahun)</th>
       </tr>
     </thead>
 
     <tbody>
-      <?php foreach ($data as [$nim, $name, $birthdate, $birthplace]) { ?>
+      <?php foreach ($data as $i => [$nim, $name, $birthdate, $birthplace]) { ?>
 
         <tr>
+          <td><?= $i + 1 ?></td>
           <td><?= $nim ?></td>
           <td><?= $name ?></td>
           <td><?= $birthdate ?></td>
