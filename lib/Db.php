@@ -12,7 +12,7 @@ function createConnection()
     'database' => $dbName,
     'user' => $dbUser,
     'pass' => $dbPass,
-  ]] = require PATH_APP_ROOT . 'config.php';
+  ]] = CONFIG;
 
   return new \mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
 }

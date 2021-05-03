@@ -5,13 +5,13 @@ use Auth\Auth;
 use Model\Game;
 
 if (!Auth::user()) {
-  header('Location: /index.php');
+  header('Location: ' . CONFIG['app_url'] . '/index.php');
 }
 
 $game = Game::loadFromSessionOrNew();
 
 if ($game->getLives() <= 0) {
-  header('Location: /gameover.php');
+  header('Location: ' . CONFIG['app_url'] . '/gameover.php');
 }
 ?>
 
@@ -46,7 +46,7 @@ if ($game->getLives() <= 0) {
     <?php } ?>
 
     <section class="section">
-      <a href="./play.php" class="button is-primary" autofocus>Soal selanjutnya</a>
+      <a href="<?= CONFIG['app_url'] ?>/play.php" class="button is-primary" autofocus>Soal selanjutnya</a>
     </section>
 
   <?php
@@ -58,7 +58,7 @@ if ($game->getLives() <= 0) {
       <span class="subtitle">Lives: <?= $game->getLives() ?> | Score: <?= $game->getScore() ?></span>
     </section>
 
-    <form action="./play.php" method="post" class="section">
+    <form action="<?= CONFIG['app_url'] ?>/play.php" method="post" class="section">
       <h3 class="title">Berapakah <?= $game->getCurrentQuiz() ?> ...</h3>
 
       <div class="subtitle field is-grouped">

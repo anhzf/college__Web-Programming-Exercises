@@ -1,6 +1,7 @@
 <?php
 
 define('PATH_APP_ROOT', str_replace('\\', '/', realpath(__DIR__)) . '/');
+define('CONFIG', require PATH_APP_ROOT . 'config.php');
 
 require_once PATH_APP_ROOT . 'lib/Auth.php';
 require_once PATH_APP_ROOT . 'lib/Db.php';

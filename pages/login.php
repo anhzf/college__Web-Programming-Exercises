@@ -6,7 +6,7 @@ use Auth\Auth;
 
 if (Auth::user()) {
   Auth::logout();
-  header('Location: /index.php');
+  header('Location: ' . CONFIG['app_url'] . '/index.php');
 }
 
 @[
@@ -18,4 +18,4 @@ if ($username && $email) {
   Auth::login($username, $email);
 }
 
-header('Location: /index.php');
+header('Location: ' . CONFIG['app_url'] . '/index.php');

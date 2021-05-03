@@ -24,13 +24,13 @@ $game = Game::loadFromSessionOrNew();
 
       <small class="subtitle">
         <span>Bukan anda? </span>
-        <a href="./login.php">klik disini</a>
+        <a href="<?= CONFIG['app_url'] ?>/login.php">klik disini</a>
       </small>
 
       <?php if ($game->hasChanges()) { ?>
-        <a href="./play.php" class="button is-primary">Lanjutkan game</a>
+        <a href="<?= CONFIG['app_url'] ?>/play.php" class="button is-primary">Lanjutkan game</a>
       <?php } else { ?>
-        <a href="./play.php" class="button is-primary">Mulai game</a>
+        <a href="<?= CONFIG['app_url'] ?>/play.php" class="button is-primary">Mulai game</a>
       <?php } ?>
     </section>
 

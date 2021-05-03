@@ -5,7 +5,7 @@ use Auth\Auth;
 use Model\Game;
 
 if (!Auth::user()) {
-  header('Location: /index.php');
+  header('Location: ' . CONFIG['app_url'] . '/index.php');
 }
 
 $game = Game::loadFromSessionOrNew();
@@ -27,7 +27,7 @@ $game::resetInstance();
   </section>
 
   <section class="section">
-    <a href="./play.php" class="button is-primary" autofocus>Main Lagi</a>
+    <a href="<?= CONFIG['app_url'] ?>/play.php" class="button is-primary" autofocus>Main Lagi</a>
   </section>
 
   <section class="section columns">
