@@ -140,19 +140,22 @@ class Game
 
   public static function loadFromSessionOrNew()
   {
-    if (
-      isset($_SESSION['game'])
-      && ($_SESSION['game'] instanceof Game)
-      && ($_SESSION['game']->getUserId() === Auth::user()->id)
-    ) {
-      Game::$instance = $_SESSION['game'];
-      Game::$instance->syncToDb();
-    } else {
-      Game::$instance = new Game();
+    if (Auth::user()) {
+      if (
+        isset($_SESSION['game'])
+        && ($_SESSION['game'] instanceof Game)
+        && ($_SESSION['game']->getUserId() === Auth::user()->id)
+      ) {
+        Game::$instance = $_SESSION['game'];
+        Game::$instance->syncToDb();
+      } else {
+        Game::$instance = new Game();
+      }
+
+      return Game::$instance;
     }
 
-
-    return Game::$instance;
+    return null;
   }
 
   public static function getTop10()
