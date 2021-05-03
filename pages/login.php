@@ -5,6 +5,7 @@ require_once '../core.php';
 use Auth\Auth;
 
 if (Auth::user()) {
+  Auth::logout();
   header('Location: /index.php');
 }
 
