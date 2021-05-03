@@ -28,6 +28,7 @@ $game::resetInstance();
 
   <section class="section">
     <a href="<?= CONFIG['app_url'] ?>/play.php" class="button is-primary" autofocus>Main Lagi</a>
+    <a href="<?= CONFIG['app_url'] ?>/index.php" class="button is-ghost">Kembali ke halaman utama</a>
   </section>
 
   <section class="section columns">
