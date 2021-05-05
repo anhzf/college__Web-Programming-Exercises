@@ -16,7 +16,7 @@ $data = [
 <body>
   <main class="container row">
     <div class="col s12">
-      <h1>Tambah data karyawan</h1>
+      <h1>Edit data karyawan</h1>
     </div>
 
     <?= Component::render('FormKaryawan', [

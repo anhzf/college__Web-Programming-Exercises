@@ -38,8 +38,8 @@ use lib\Component;
               <td>+62851XXXXXX</td>
               <td>Solo</td>
               <td>
-                <button class="waves-effect waves-light btn-small light-blue">Detail</button>
-                <button class="waves-effect waves-light btn-small">Edit</button>
+                <a href="<?= CONFIG['APP_URL'] ?>/view.php" class="waves-effect waves-light btn-small light-blue">Detail</a>
+                <a href="<?= CONFIG['APP_URL'] ?>/edit.php" class="waves-effect waves-light btn-small">Edit</a>
                 <button data-target="modal_confirmDelete" class="waves-effect waves-light btn-small red modal-trigger">Hapus</button>
               </td>
             </tr>
@@ -49,22 +49,24 @@ use lib\Component;
     </div>
   </main>
 
+  <!-- sticky related -->
   <div class="fixed-action-btn">
-    <a href="<?= CONFIG['APP_URL'] ?>/add.php" class="waves-effect waves-light btn-floating btn-large blue">
+    <a href="<?= CONFIG['APP_URL'] ?>/add.php" data-tooltip="Tambah data karyawan" data-position="left" class="waves-effect waves-light btn-floating btn-large blue tooltipped">
       <i class="large material-icons">add</i>
     </a>
   </div>
 
-  <div id="modal_confirmDelete" class="modal">
+  <!-- modal related -->
+  <form id="modal_confirmDelete" class="modal">
     <div class="modal-content">
-      <h5>Apakah anda yakin untuk menghapus ...</h5>
+      <h5>Apakah anda yakin untuk menghapus...</h5>
     </div>
 
     <div class="modal-footer">
       <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
       <button class="modal-close waves-effect waves-green btn">OK</button>
     </div>
-  </div>
+  </form>
 
   <?= Component::render('HTMLBaseFooter') ?>
 </body>
