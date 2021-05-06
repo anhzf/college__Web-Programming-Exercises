@@ -4,7 +4,7 @@ namespace models;
 
 use lib\Db;
 
-class Employe extends BaseModel
+class Employee extends BaseModel
 {
   public static $defaultAttrs = [
     'nama' => '',
@@ -108,23 +108,23 @@ class Employe extends BaseModel
     $query = "SELECT id, nama, email, telepon, alamat, jenis_kelamin, tempat_lahir, tanggal_lahir FROM `karyawan`";
 
     if ($stmt = $conn->prepare($query)) {
-      $employe = [];
+      $employee = [];
       $stmt->execute();
 
       $stmt->bind_result(
-        $employe['id'],
-        $employe['nama'],
-        $employe['email'],
-        $employe['telepon'],
-        $employe['alamat'],
-        $employe['jenisKelamin'],
-        $employe['tempatLahir'],
-        $employe['tanggalLahir'],
+        $employee['id'],
+        $employee['nama'],
+        $employee['email'],
+        $employee['telepon'],
+        $employee['alamat'],
+        $employee['jenisKelamin'],
+        $employee['tempatLahir'],
+        $employee['tanggalLahir'],
       );
 
       while ($stmt->fetch()) {
-        $employe['tanggalLahir'] = new \DateTime($employe['tanggalLahir']);
-        array_push($data, new Employe($employe));
+        $employee['tanggalLahir'] = new \DateTime($employee['tanggalLahir']);
+        array_push($data, new Employee($employee));
       }
 
       $stmt->close();
