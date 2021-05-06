@@ -9,12 +9,12 @@ class Db
   private static function createConn()
   {
     [
-      'host' => $dbHost,
-      'port' => $dbPort,
-      'database' => $dbName,
-      'user' => $dbUser,
-      'pass' => $dbPass,
-    ] = CONFIG['db'];
+      'HOST' => $dbHost,
+      'PORT' => $dbPort,
+      'DATABASE' => $dbName,
+      'USER' => $dbUser,
+      'PASS' => $dbPass,
+    ] = CONFIG['DB'];
 
     $conn = new \mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
     // automatically close the connection when program is stopped
