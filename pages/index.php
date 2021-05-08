@@ -82,10 +82,6 @@ $employee = new Employee([
     </div>
   </form>
 
-  <small>
-    <pre><?= var_dump(null) ?></pre>
-  </small>
-
   <?= Component::render('HTMLBaseFooter') ?>
   <script>
     document.addEventListener('DOMContentLoaded', function() {

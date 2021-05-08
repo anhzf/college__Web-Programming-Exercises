@@ -38,8 +38,6 @@ try {
       'submitLabel' => 'Tambah',
       'data' => $_POST,
     ]) ?>
-
-    <pre class="blue-grey lighten-5"><?= var_dump($employee, $_POST) ?></pre>
   </main>
 
   <?= Component::render('HTMLBaseFooter') ?>

@@ -64,8 +64,6 @@ $data = [
       'submitLabel' => 'Simpan',
       'buttonSubmitName' => $formButtonSubmitName
     ]) ?>
-
-    <pre><?= var_dump($_POST, $employee, $isAfterSaveEdit) ?></pre>
   </main>
 
   <?= Component::render('HTMLBaseFooter') ?>
