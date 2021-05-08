@@ -1,16 +1,24 @@
 <?php require './_init.php';
 
 use lib\Component;
+use models\Employee;
 
-$data = [
-  'namaLengkap' => 'Lorem ipsum dolor',
-  'email' => 'someone@google.xyz',
-  'nomorTelepon' => '+62851XXXXXX',
-  'alamat' => 'Solo',
-  'jenisKelamin' => 'Pria',
-  'tempatLahir' => 'Sama kayak beta',
-  'tanggalLahir' => '21',
-];
+$data = null;
+
+try {
+  $employee = Employee::get((int) $_GET['id']);
+  $data = [
+    'nama lengkap' => $employee->nama,
+    'email' => $employee->email,
+    'telepon' => $employee->telepon,
+    'alamat' => $employee->alamat,
+    'jenis kelamin' => $employee->jenisKelamin,
+    'tempat lahir' => $employee->tempatLahir,
+    'tanggal lahir' => $employee->getTanggalLahir(),
+  ];
+} catch (\Throwable $th) {
+  header('Location: ' . CONFIG['APP_URL']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +44,7 @@ $data = [
   <main class="container row">
     <ul class="col s12 collection with-header">
       <li class="collection-header">
-        <h4><code>1</code> | Papa Zola</h4>
+        <h4><code><?= $employee->id ?></code> | <?= $employee->nama ?></h4>
       </li>
 
       <?php foreach ($data as $k => $v) { ?>
@@ -50,7 +58,7 @@ $data = [
 
   <!-- sticky related -->
   <div class="fixed-action-btn">
-    <a href="<?= CONFIG['APP_URL'] ?>/edit.php" data-tooltip="Edit data karyawan" data-position="left" class="waves-effect waves-light btn-floating btn-large blue tooltipped">
+    <a href="<?= CONFIG['APP_URL'] ?>/edit.php?<?= http_build_query(['id' => $employee->id]) ?>" data-tooltip="Edit data karyawan" data-position="left" class="waves-effect waves-light btn-floating btn-large blue tooltipped">
       <i class="large material-icons">edit</i>
     </a>
   </div>

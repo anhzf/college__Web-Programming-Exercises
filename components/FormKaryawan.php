@@ -2,22 +2,18 @@
 
 use lib\Component;
 use lib\Helper;
+use models\Employee;
 
 $_defaultData = [
-  'namaLengkap' => '',
-  'email' => '',
-  'nomorTelepon' => '',
-  'alamat' => '',
-  'jenisKelamin' => '',
-  'tempatLahir' => '',
-  'tanggalLahir' => '',
-];
+  'tanggalLahir' => date('Y-m-d'),
+] + Employee::$defaultAttrs;
 
 $data = ($data ?? []) + $_defaultData;
 $class = $class ?? '';
 $submitLabel = $submitLabel ?? 'submit';
+$buttonSubmitName = $buttonSubmitName ?? 'formKaryawan_submit';
 
-$_props = ['data', 'submitLabel', 'class'];
+$_props = ['data', 'submitLabel', 'buttonSubmitName', 'class'];
 $_attrs = Helper::arrayExcludeKeys(get_defined_vars(), array_merge($_props, ['_', '_defaultData', '_props']));
 
 $_class = "row {$class}";
@@ -28,8 +24,8 @@ $_class = "row {$class}";
   <div class="row">
     <?= Component::render('Input', [
       'label' => 'Nama Lengkap',
-      'name' => 'namaLengkap',
-      'value' => $data['namaLengkap'],
+      'name' => 'nama',
+      'value' => $data['nama'],
       'class' => 'col s6',
       'required' => false,
     ]) ?>
@@ -49,8 +45,8 @@ $_class = "row {$class}";
   <div class="row">
     <?= Component::render('Input', [
       'label' => 'Nomor telepon',
-      'name' => 'nomorTelepon',
-      'value' => $data['nomorTelepon'],
+      'name' => 'telepon',
+      'value' => $data['telepon'],
       'type' => 'tel',
       'class' => 'col s6',
       'required' => true,
@@ -109,7 +105,7 @@ $_class = "row {$class}";
 
   <div class="row">
     <div class="col s6">
-      <button type="submit" class="waves-effect waves-light btn"><?= $submitLabel ?></button>
+      <button type="submit" name="<?= $buttonSubmitName ?>" class="waves-effect waves-light btn"><?= $submitLabel ?></button>
     </div>
   </div>
 </form>

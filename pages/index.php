@@ -1,6 +1,16 @@
 <?php require_once './_init.php';
 
 use lib\Component;
+use models\Employee;
+
+$employee = new Employee([
+  'nama' => 'Anhzf',
+  'email' => 'anh.dev7@gmail.com',
+  'telepon' => '+62851XXXXXX',
+  'alamat' => 'Solo',
+  'jenisKelamin' => 'PRIA',
+  'tempatLahir' => 'Sukoh',
+]);
 ?>
 
 <!DOCTYPE html>
@@ -17,9 +27,10 @@ use lib\Component;
     </div>
 
     <div class="col s12 row">
-      <table class="striped centered highlight responsive-table">
+      <table class="striped highlight responsive-table">
         <thead>
           <tr>
+            <th>No</th>
             <th>Nama</th>
             <th>Email</th>
             <th>Telepon</th>
@@ -29,18 +40,19 @@ use lib\Component;
         </thead>
 
         <tbody>
-          <?php foreach (array_fill(0, 10, null) as $k => $v) { ?>
+          <?php foreach (Employee::getAll() as $no => $employee) { ?>
             <tr>
-              <td>Alvin</td>
-              <td>
-                <a href="mailto:someone@google.xyz">someone@google.xyz</a>
+              <td><?= $no + 1 ?></td>
+              <td><?= $employee->nama ?></td>
+              <td style="width: 10%;">
+                <a href="mailto:<?= $employee->email ?>"><?= $employee->email ?></a>
               </td>
-              <td>+62851XXXXXX</td>
-              <td>Solo</td>
+              <td style="width: 10%;"><?= $employee->telepon ?></td>
+              <td style="width: 25%;"><?= $employee->alamat ?></td>
               <td>
-                <a href="<?= CONFIG['APP_URL'] ?>/view.php" class="waves-effect waves-light btn-small light-blue">Detail</a>
-                <a href="<?= CONFIG['APP_URL'] ?>/edit.php" class="waves-effect waves-light btn-small">Edit</a>
-                <button data-target="modal_confirmDelete" class="waves-effect waves-light btn-small red modal-trigger">Hapus</button>
+                <a href="<?= CONFIG['APP_URL'] ?>/view.php?<?= http_build_query(['id' => $employee->id]) ?>" class="waves-effect waves-light btn-small light-blue">Detail</a>
+                <a href="<?= CONFIG['APP_URL'] ?>/edit.php?<?= http_build_query(['id' => $employee->id]) ?>" class="waves-effect waves-light btn-small">Edit</a>
+                <button data-target="modal_confirmDelete" data-employee-id="<?= $employee->id ?>" class="waves-effect waves-light btn-small red modal-trigger">Hapus</button>
               </td>
             </tr>
           <?php } ?>
@@ -57,18 +69,42 @@ use lib\Component;
   </div>
 
   <!-- modal related -->
-  <form id="modal_confirmDelete" class="modal">
+  <form id="modal_confirmDelete" action="<?= CONFIG['APP_URL'] ?>/delete.php" method="post" class="modal">
     <div class="modal-content">
-      <h5>Apakah anda yakin untuk menghapus...</h5>
+      <h5>Apakah anda yakin untuk menghapus <code id="confirmMessage_employeeId" class="blue-grey lighten-5">dosa :v</code> ?</h5>
     </div>
 
+    <input id="confirmDelete_input" type="hidden" name="employeeId" value="awokakaowk">
+
     <div class="modal-footer">
-      <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
-      <button class="modal-close waves-effect waves-green btn">OK</button>
+      <button type="submit" class="modal-close waves-effect waves-green btn-flat red-text">OK</button>
+      <button type="reset" class="modal-close waves-effect waves-green btn">Cancel</button>
     </div>
   </form>
 
+  <small>
+    <pre><?= var_dump(null) ?></pre>
+  </small>
+
   <?= Component::render('HTMLBaseFooter') ?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const deleteModalConfirm = document.getElementById('modal_confirmDelete');
+
+      const instance = M.Modal.init(deleteModalConfirm, {
+        onOpenStart(modalEl, buttonEl) {
+          const {
+            employeeId
+          } = buttonEl.dataset;
+          const confirmMessageEl = modalEl.querySelector('#confirmMessage_employeeId');
+          const confirmInputEl = modalEl.querySelector('#confirmDelete_input');
+
+          confirmInputEl.value = employeeId;
+          confirmMessageEl.textContent = employeeId;
+        },
+      });
+    });
+  </script>
 </body>
 
 </html>

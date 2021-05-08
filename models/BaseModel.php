@@ -38,7 +38,11 @@ class BaseModel
     if (method_exists($this, $setterName)) {
       $this->$setterName($value);
     } else {
-      throw new \Exception('Can\'t assign private property `' . $name . '`', 1);
+      if (property_exists($this, $name)) {
+        throw new \Exception('Can\'t assign private property `' . $name . '`', 1);
+      } else {
+        $this->{$name} = $value;
+      }
     }
   }
 }

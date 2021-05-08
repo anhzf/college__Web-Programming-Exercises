@@ -44,10 +44,10 @@ class Employee extends BaseModel
   public function save()
   {
     $conn = Db::getConn();
+    $success = false;
     $query = "UPDATE `karyawan`
-      SET nama = ?, email = ?, telepon = ?, alamat = ?, jenis_kelamin = ?, tempat_lahir = ?, tanggal_lahir = ?)
-      WHERE id = ?
-      LIMIT 1";
+      SET nama = ?, email = ?, telepon = ?, alamat = ?, jenis_kelamin = ?, tempat_lahir = ?, tanggal_lahir = ?
+      WHERE id = ?";
 
     if ($stmt = $conn->prepare($query)) {
       // supported format for sql date
@@ -67,17 +67,17 @@ class Employee extends BaseModel
       $success = $stmt->execute();
 
       $stmt->close();
-
-      return $success;
     }
+
+    return $success;
   }
 
   public function create()
   {
     $conn = Db::getConn();
     $query = "INSERT INTO `karyawan`
-    (nama, email, telepon, alamat, jenis_kelamin, tempat_lahir, tanggal_lahir)
-    VALUES (?, ?, ?, ?, ?, ?, ?)";
+      (nama, email, telepon, alamat, jenis_kelamin, tempat_lahir, tanggal_lahir)
+      VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $conn->prepare($query)) {
       // supported format for sql date
@@ -101,6 +101,49 @@ class Employee extends BaseModel
     return $conn->insert_id;
   }
 
+  public static function get(int $id)
+  {
+    $conn = Db::getConn();
+    $data = null;
+    $query = "SELECT id, nama, email, telepon, alamat, jenis_kelamin, tempat_lahir, tanggal_lahir
+      FROM `karyawan`
+      WHERE id = ?
+      LIMIT 1";
+
+    if ($stmt = $conn->prepare($query)) {
+      try {
+
+        $stmt->bind_param('i', $id);
+        $attrs = [];
+        $stmt->execute();
+
+        $stmt->bind_result(
+          $attrs['id'],
+          $attrs['nama'],
+          $attrs['email'],
+          $attrs['telepon'],
+          $attrs['alamat'],
+          $attrs['jenisKelamin'],
+          $attrs['tempatLahir'],
+          $attrs['tanggalLahir'],
+        );
+
+        while ($stmt->fetch()) {
+          $attrs['tanggalLahir'] = new \DateTime($attrs['tanggalLahir']);
+          $data = new Employee($attrs);
+        }
+
+        $stmt->close();
+      } catch (\Throwable $th) {
+        echo '<pre>';
+        var_dump($id, $attrs, $th);
+        echo '</pre>';
+      }
+    }
+
+    return $data;
+  }
+
   public static function getAll()
   {
     $conn = Db::getConn();
@@ -108,28 +151,47 @@ class Employee extends BaseModel
     $query = "SELECT id, nama, email, telepon, alamat, jenis_kelamin, tempat_lahir, tanggal_lahir FROM `karyawan`";
 
     if ($stmt = $conn->prepare($query)) {
-      $employee = [];
+      $attrs = [];
       $stmt->execute();
 
       $stmt->bind_result(
-        $employee['id'],
-        $employee['nama'],
-        $employee['email'],
-        $employee['telepon'],
-        $employee['alamat'],
-        $employee['jenisKelamin'],
-        $employee['tempatLahir'],
-        $employee['tanggalLahir'],
+        $attrs['id'],
+        $attrs['nama'],
+        $attrs['email'],
+        $attrs['telepon'],
+        $attrs['alamat'],
+        $attrs['jenisKelamin'],
+        $attrs['tempatLahir'],
+        $attrs['tanggalLahir'],
       );
 
       while ($stmt->fetch()) {
-        $employee['tanggalLahir'] = new \DateTime($employee['tanggalLahir']);
-        array_push($data, new Employee($employee));
+        $attrs['tanggalLahir'] = new \DateTime($attrs['tanggalLahir']);
+        array_push($data, new Employee($attrs));
       }
 
       $stmt->close();
     }
 
     return $data;
+  }
+
+  public static function delete($id)
+  {
+    $conn = Db::getConn();
+    $success = false;
+    $query = "DELETE FROM `karyawan`
+      WHERE id = ?
+      LIMIT 1";
+
+    if ($stmt = $conn->prepare($query)) {
+      $stmt->bind_param('i', $id);
+
+      $success = $stmt->execute();
+
+      $stmt->close();
+    }
+
+    return $success;
   }
 }
