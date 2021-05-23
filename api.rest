@@ -28,3 +28,7 @@ Accept: application/json, text/plain
 {
   "angkatan": 2020,
 }
+
+###
+DELETE {{baseUrl}}/k3519010
+Accept: application/json, text/plain
