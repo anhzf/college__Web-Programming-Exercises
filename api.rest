@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:8000/mahasiswa
+
+GET {{baseUrl}}/
+Accept: application/json, text/plain
+
+###
+GET {{baseUrl}}/k3519010
+Accept: application/json, text/plain
+
+###
+POST {{baseUrl}}/
+Content-Type: application/json
+Accept: application/json, text/plain
+
+{
+  "nim": "k3519010",
+  "nama": "Anhzf",
+  "angkatan": 2019,
+  "semester": 6,
+  "ipk": 4.00
+}
+
+###
+PUT {{baseUrl}}/k3519010
+Content-Type: application/json
+Accept: application/json, text/plain
+
+{
+  "angkatan": 2020,
+}
