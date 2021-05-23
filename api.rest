@@ -4,6 +4,10 @@ GET {{baseUrl}}/
 Accept: application/json, text/plain
 
 ###
+GET {{baseUrl}}/
+Accept: application/json, text/plain
+
+###
 GET {{baseUrl}}/k3519010
 Accept: application/json, text/plain
 
