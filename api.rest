@@ -1,38 +1,35 @@
 @baseUrl = http://localhost:8000/mahasiswa
 
+### GET ALL MAHASISWA
 GET {{baseUrl}}/
 Accept: application/json, text/plain
 
-###
-GET {{baseUrl}}/
-Accept: application/json, text/plain
-
-###
+### GET MAHASISWA BY NIM
 GET {{baseUrl}}/k3519010
 Accept: application/json, text/plain
 
-###
+### ADD MAHASISWA
 POST {{baseUrl}}/
 Content-Type: application/json
 Accept: application/json, text/plain
 
 {
-  "nim": "k3519010",
-  "nama": "Anhzf",
+  "nim": "k35190100",
+  "nama": "Alwan Nuha",
   "angkatan": 2019,
   "semester": 6,
   "ipk": 4.00
 }
 
-###
+### UPDATE MAHASISWA
 PUT {{baseUrl}}/k3519010
 Content-Type: application/json
 Accept: application/json, text/plain
 
 {
-  "angkatan": 2020,
+  "angkatan": 2019
 }
 
-###
-DELETE {{baseUrl}}/k3519010
+### DELETE MAHASISWA BY NIM
+DELETE {{baseUrl}}/k35190100
 Accept: application/json, text/plain

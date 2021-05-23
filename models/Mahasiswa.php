@@ -4,7 +4,7 @@ namespace models;
 
 use lib\Db;
 
-class Mahasiswa extends BaseModel
+class Mahasiswa extends BaseModel implements \JsonSerializable
 {
   public static $defaultAttrs = [
     'angkatan' => 2019,
@@ -49,9 +49,10 @@ class Mahasiswa extends BaseModel
       }
 
       $stmt->close();
+    } else {
+      throw new \Exception($conn->error);
     }
 
-    throw new \Exception($conn->error);
     return $success;
   }
 
@@ -96,30 +97,23 @@ class Mahasiswa extends BaseModel
       LIMIT 1";
 
     if ($stmt = $conn->prepare($query)) {
-      try {
+      $stmt->bind_param('s', $nim);
+      $stmt->execute();
+      $attrs = [];
 
-        $stmt->bind_param('s', $nim);
-        $attrs = [];
-        $stmt->execute();
+      $stmt->bind_result(
+        $attrs['nim'],
+        $attrs['nama'],
+        $attrs['angkatan'],
+        $attrs['semester'],
+        $attrs['ipk'],
+      );
 
-        $stmt->bind_result(
-          $attrs['nim'],
-          $attrs['nama'],
-          $attrs['angkatan'],
-          $attrs['semester'],
-          $attrs['ipk'],
-        );
-
-        while ($stmt->fetch()) {
-          $data = new Mahasiswa($attrs);
-        }
-
-        $stmt->close();
-      } catch (\Throwable $th) {
-        echo '<pre>';
-        var_dump($nim, $attrs, $th);
-        echo '</pre>';
+      while ($stmt->fetch()) {
+        $data = new Mahasiswa($attrs);
       }
+
+      $stmt->close();
     }
 
     return $data;
@@ -170,5 +164,16 @@ class Mahasiswa extends BaseModel
     }
 
     return $success;
+  }
+
+  public function jsonSerialize()
+  {
+    return [
+      'nim' => $this->nim,
+      'nama' => $this->nama,
+      'angkatan' => $this->angkatan,
+      'semester' => $this->semester,
+      'ipk' => $this->ipk,
+    ];
   }
 }
