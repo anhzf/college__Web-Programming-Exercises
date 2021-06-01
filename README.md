@@ -5,6 +5,8 @@ Nama | Alwan Nuha Zaky Fadhila
 NIM | K3519010
 Kelas | PTIK B
 
+Repository link: https://github.com/anhzf/Web-Programming-Exercises/tree/ftp
+
 # Langkah instalasi untuk komputer lokal
 
 ## Requirement
@@ -15,16 +17,11 @@ Kelas | PTIK B
 
    Clone repository ini atau download zip code projek ini kemudian ekstrak file zip tersebut
 
-2. Setup database/migrasi database
-
-   Setelah itu masuk ke folder projek tersebut kemudian eksekusi query SQL yang berada di `database.sql`
-   > bagi pengguna phpmyadmin silahkan buat/masuk ke database kemudian masuk ke tab SQL, setelah itu paste dan klik `go`
-
-3. Setup konfigurasi projek
+2. Setup konfigurasi projek
 
    Silahkan buka `config.php` kemudian isikan sesuai preferensi kalian
 
-4. Menjalankan server
+3. Menjalankan server
 
    - Bagi pengguna xampp cukup taruh folder projek ke folder `/htdocs` dimana program xampp terinstall, kemudian buka xampp control panel aktifkan apache dan mysql. Done!
    - Atau menggunakan server bawaan PHP dengan menuliskan command berikut
